@@ -11,25 +11,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "pedido")
 @Data
-@NoArgsConstructor
+@Table(name = "resena_producto")
 @AllArgsConstructor
-public class Pedido {
+@NoArgsConstructor
+public class ResenaProducto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPedido;
+    private Long idResena;
 
     @ManyToOne
     @JoinColumn(name = "idCliente", nullable = false)
     private Cliente cliente;
 
-    @Column(nullable = false)
-    private LocalDateTime fechaPedido;
+    @ManyToOne
+    @JoinColumn(name = "idProducto", nullable = false)
+    private Producto producto;
 
     @Column(nullable = false)
-    private Integer total;
+    private Integer calificacion;
 
-    @Column(length = 20)
-    private String descuentoAplicado;
+    @Column(nullable = false)
+    private LocalDateTime fechaResena;
+
 }

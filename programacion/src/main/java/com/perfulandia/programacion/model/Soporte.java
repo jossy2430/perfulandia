@@ -11,25 +11,29 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "pedido")
+@Table(name = "soporte")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Pedido {
+@NoArgsConstructor
+public class Soporte {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPedido;
+    private Long idSoporte;
 
     @ManyToOne
     @JoinColumn(name = "idCliente", nullable = false)
     private Cliente cliente;
 
-    @Column(nullable = false)
-    private LocalDateTime fechaPedido;
+    @Column(nullable = false, length = 100)
+    private String asunto;
+
+    @Column(columnDefinition = "TEXT")
+    private String descripcion;
+
+    @Column(length = 50)
+    private String estado;
 
     @Column(nullable = false)
-    private Integer total;
+    private LocalDateTime fechaCreacion;
 
-    @Column(length = 20)
-    private String descuentoAplicado;
 }
