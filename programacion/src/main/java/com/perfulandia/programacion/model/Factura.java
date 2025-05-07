@@ -1,36 +1,36 @@
 package com.perfulandia.programacion.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "producto")
+@Table(name = "factura")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Producto {
+@AllArgsConstructor
+public class Factura {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idProducto;
+    private Integer idFactura;
 
-    @Column(nullable = false, length = 50)
-    private String nombreProducto;
-
-    @Column(nullable = false, length = 255)
-    private String descripcion;
+    @OneToOne
+    @JoinColumn(name = "idPedido")
+    private Pedido pedido;
 
     @Column(nullable = false)
-    private Integer precio;
-
-    @Column(nullable = false)
-    private Integer stock;
+    private LocalDateTime fechaEmision;
 
     @Column(length = 50)
-    private String categoria;
-    
+    private String tipo;
+
+    @Column(nullable = false)
+    private Integer total;
 
 }

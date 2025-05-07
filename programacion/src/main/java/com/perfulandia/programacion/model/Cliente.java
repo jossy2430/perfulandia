@@ -37,4 +37,6 @@ public class Cliente {
     @Column(nullable = false)
     private LocalDateTime fechaRegistro;
 
+    @Column(columnDefinition = "INT(9)")
+    private Integer telefono;
 }
