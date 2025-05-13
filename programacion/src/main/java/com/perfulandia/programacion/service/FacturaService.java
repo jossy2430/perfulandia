@@ -1,5 +1,34 @@
 package com.perfulandia.programacion.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.perfulandia.programacion.model.Factura;
+import com.perfulandia.programacion.repository.FacturaRepository;
+
+@Service
+@Transactional
 public class FacturaService {
+    @Autowired
+    private FacturaRepository facturaRepository;
+
+    public List<Factura> findAll(){
+        return facturaRepository.findAll();
+    }
+
+    public Factura findById(long idFactura){
+        return facturaRepository.findById(idFactura).get();
+    }
+
+    public Factura save(Factura factura){
+        return facturaRepository.save(factura);
+    }
+
+    public void delete(Long idFactura){
+        facturaRepository.deleteById(idFactura);
+    }
 
 }

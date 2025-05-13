@@ -13,6 +13,6 @@ import feign.Param;
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Long>  {
     //JPL
-    @Query("SELECT nom FROM Producto nom WHERE nom.nombre_producto = :nombre_producto")
-    List<Producto> buscarNombreProducto(@Param("nombre_producto")String nombre_producto);
+    @Query("SELECT p FROM Producto p WHERE p.nombreProducto = :nombre_producto")
+List<Producto> buscarNombreProducto(@Param("nombre_producto") String nombre_producto);
 }

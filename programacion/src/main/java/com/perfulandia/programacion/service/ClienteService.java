@@ -1,5 +1,6 @@
 package com.perfulandia.programacion.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class ClienteService {
     }
 
     public Cliente save(Cliente cliente){
+        if (cliente.getIdCliente() == null) {
+            cliente.setFechaRegistro(LocalDateTime.now());
+        }
         return clienteRepository.save(cliente);
     }
 
