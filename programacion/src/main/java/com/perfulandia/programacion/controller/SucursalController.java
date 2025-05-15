@@ -18,7 +18,7 @@ import com.perfulandia.programacion.model.Sucursal;
 import com.perfulandia.programacion.service.SucursalService;
 
 @RestController
-@RequestMapping("/api/vi/sucursales")
+@RequestMapping("/api/v1/sucursales")
 public class SucursalController {
     @Autowired
     private SucursalService sucursalService;

@@ -18,7 +18,7 @@ import com.perfulandia.programacion.model.Empleado;
 import com.perfulandia.programacion.service.EmpleadoService;
 
 @RestController
-@RequestMapping("/api/v1/empleador")
+@RequestMapping("/api/v1/empleados")
 public class EmpleadoController {
     @Autowired
     private EmpleadoService empleadoService;
@@ -66,7 +66,7 @@ public class EmpleadoController {
         }
     }
 
-    @DeleteMapping("/idEmpleado")
+    @DeleteMapping("/{idEmpleado}")
     public ResponseEntity<?> eliminar(@PathVariable Long idEmpleado){
         try {
             empleadoService.delete(idEmpleado);
