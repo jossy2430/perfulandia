@@ -54,10 +54,7 @@ public class PedidoController {
             Pedido pe = pedidoService.finById(idPedido);
             pe.setIdPedido(idPedido);
             pe.setCliente(pedido.getCliente());
-            pe.setFechaPedido(pedido.getFechaPedido());
-            pe.setTotal(pedido.getTotal());
-            pe.setDescuentoAplicado(pedido.getDescuentoAplicado());
-
+            
             pedidoService.save(pedido);
             return ResponseEntity.ok(pedido);
         } catch (Exception e) {

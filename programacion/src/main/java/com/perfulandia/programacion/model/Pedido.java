@@ -1,7 +1,5 @@
 package com.perfulandia.programacion.model;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.*;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -24,12 +22,8 @@ public class Pedido {
     @JoinColumn(name = "idCliente", nullable = false)
     private Cliente cliente;
 
-    @Column(nullable = false)
-    private LocalDateTime fechaPedido;
+    @ManyToOne
+    @JoinColumn(name = "idDetalle", nullable = false)
+    private DetallePedido detallePedido;
 
-    @Column(nullable = false)
-    private Integer total;
-
-    @Column(length = 20)
-    private String descuentoAplicado;
 }

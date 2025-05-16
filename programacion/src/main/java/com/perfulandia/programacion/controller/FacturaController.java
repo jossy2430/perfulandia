@@ -53,8 +53,10 @@ public class FacturaController {
         try {
             Factura fac = facturaService.findById(iidFactura);
             fac.setIdFactura(iidFactura);
-            fac.setPedido(factura.getPedido());
+            fac.setProducto(fac.getProducto());
             fac.setFechaEmision(factura.getFechaEmision());
+            fac.setTotal(iidFactura);
+            fac.setProveedor(factura.getProveedor());
 
             facturaService.save(factura);
             return ResponseEntity.ok(factura);

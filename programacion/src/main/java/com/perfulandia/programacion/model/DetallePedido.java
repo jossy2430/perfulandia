@@ -1,9 +1,8 @@
 package com.perfulandia.programacion.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,9 +17,8 @@ public class DetallePedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDetalle;
 
-    @ManyToOne
-    @JoinColumn(name = "idPedido", nullable = false)
-    private Pedido pedido;
+    @Column(nullable = false)
+    private LocalDateTime fecha;
 
     @ManyToOne
     @JoinColumn(name = "idProducto", nullable = false)
@@ -30,6 +28,13 @@ public class DetallePedido {
     private Integer cantidad;
 
     @Column(nullable = false)
-    private Integer precioUnitario;
+    private Integer totalSinDescuento;
+
+    @ManyToOne
+    @JoinColumn(name = "codigoCupon", referencedColumnName = "codigo")
+    private CuponDescuento cuponAplicado;
+
+    @Column(length = 20)
+    private Double totalConDescuento;
 
 }

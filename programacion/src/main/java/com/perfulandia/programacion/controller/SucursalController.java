@@ -39,7 +39,7 @@ public class SucursalController {
     }
 
     @GetMapping("/{idSucursal}")
-    public ResponseEntity<Sucursal> buscar(@PathVariable Integer idSucursal){
+    public ResponseEntity<Sucursal> buscar(@PathVariable Long idSucursal){
         try {
             Sucursal sucursal = sucursalService.findById(idSucursal);
             return ResponseEntity.ok(sucursal);
@@ -49,10 +49,10 @@ public class SucursalController {
     }
 
     @PutMapping("/{idSucursal}")
-    public ResponseEntity<Sucursal> actualizar(@PathVariable Integer idSucursal, @RequestBody Sucursal sucursal){
+    public ResponseEntity<Sucursal> actualizar(@PathVariable Long idSucursal, @RequestBody Sucursal sucursal){
         try {
             Sucursal su = sucursalService.findById(idSucursal);
-            su.setIdSucursal(idSucursal);
+            su.setIdSucursal(idSucursal.intValue());
             su.setNombreSucursal(sucursal.getNombreSucursal());
             su.setDireccion(sucursal.getDireccion());
 
@@ -67,7 +67,7 @@ public class SucursalController {
     public ResponseEntity<?> eliminar(@PathVariable Long idSucursal){
         try {
             sucursalService.delete(idSucursal);
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

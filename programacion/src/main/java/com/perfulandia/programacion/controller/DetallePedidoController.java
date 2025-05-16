@@ -52,9 +52,13 @@ public class DetallePedidoController {
         try {
             DetallePedido dp = detallePedidoService.findById(idDetalle);
             dp.setIdDetalle(idDetalle);
-            dp.setPedido(detallePedido.getPedido());
             dp.setCantidad(detallePedido.getCantidad());
-            dp.setPrecioUnitario(detallePedido.getPrecioUnitario());
+            dp.setFecha(detallePedido.getFecha());
+            dp.setProducto(detallePedido.getProducto());
+            dp.setCantidad(detallePedido.getCantidad());
+            dp.setTotalSinDescuento(detallePedido.getTotalSinDescuento());
+            dp.setCuponAplicado(detallePedido.getCuponAplicado());
+            dp.setTotalConDescuento(detallePedido.getTotalConDescuento());
 
             detallePedidoService.save(detallePedido);
             return ResponseEntity.ok(detallePedido);

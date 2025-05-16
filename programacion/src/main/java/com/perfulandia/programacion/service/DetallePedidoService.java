@@ -1,5 +1,6 @@
 package com.perfulandia.programacion.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class DetallePedidoService {
     }
 
     public DetallePedido save(DetallePedido detallePedido){
+        if (detallePedido.getIdDetalle() == null) {
+            detallePedido.setFecha(LocalDateTime.now());
+        }
         return detallePedidoRepository.save(detallePedido);
     }
 

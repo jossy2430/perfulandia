@@ -3,9 +3,6 @@ package com.perfulandia.programacion.model;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,17 +17,18 @@ public class Factura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idFactura;
 
-    @OneToOne
-    @JoinColumn(name = "idPedido")
-    private Pedido pedido;
+    @ManyToOne
+    @JoinColumn(name = "idProducto")
+    private Producto producto;
 
     @Column(nullable = false)
     private LocalDateTime fechaEmision;
 
-    @Column(length = 50)
-    private String tipo;
-
     @Column(nullable = false)
     private Integer total;
+
+    @ManyToOne
+    @JoinColumn(name = "idProveedor")
+    private Proveedor proveedor;
 
 }
