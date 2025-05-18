@@ -66,9 +66,9 @@ public class ResenaProductoController {
     }
 
     @DeleteMapping("/{idResena}")
-    public ResponseEntity<?> eliminar(@PathVariable Long idRsena){
+    public ResponseEntity<?> eliminar(@PathVariable Long idResena){
         try {
-            resenaProductoService.delete(idRsena);
+            resenaProductoService.delete(idResena);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

@@ -1,5 +1,6 @@
 package com.perfulandia.programacion.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class ResenaProductoService {
     }
 
     public ResenaProducto save(ResenaProducto resenaProducto){
+        if (resenaProducto.getFechaResena() == null) {
+            resenaProducto.setFechaResena(LocalDateTime.now());
+        }
         return resenaProductoRepository.save(resenaProducto);
     }
 

@@ -1,5 +1,6 @@
 package com.perfulandia.programacion.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class SoporteService {
     }
 
     public Soporte save(Soporte soporte){
+        if (soporte.getIdSoporte() == null) {
+            soporte.setFechaCreacion(LocalDateTime.now());
+        }
         return soporteRepository.save(soporte);
     }
 

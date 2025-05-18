@@ -46,6 +46,14 @@ public class DetallePedidoService {
             throw new RuntimeException("Producto no encontrado con ID: "+ detallePedido.getProducto().getIdProducto());
         }
 
+        //disminuir el stok
+        int nuevaCantidadStock = producto.getStock() - detallePedido.getCantidad();
+        if (nuevaCantidadStock <0) {
+            throw new RuntimeException("Sin stock para el producto con el ID :"+ producto.getIdProducto());
+        }
+        producto.setStock(nuevaCantidadStock);
+        productoRepository.save(producto);
+
         //calcular total sin descuento
         double totalSinDescuento = producto.getPrecio() * detallePedido.getCantidad();
         detallePedido.setTotalSinDescuento(totalSinDescuento);
