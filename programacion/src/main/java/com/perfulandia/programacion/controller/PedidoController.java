@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.perfulandia.programacion.model.Pedido;
 import com.perfulandia.programacion.service.PedidoService;
 
+
 @RestController
 @RequestMapping("/api/v1/pedidos")
 public class PedidoController {
@@ -54,6 +55,7 @@ public class PedidoController {
             Pedido pe = pedidoService.finById(idPedido);
             pe.setIdPedido(idPedido);
             pe.setCliente(pedido.getCliente());
+            pe.setDetallePedido(pedido.getDetallePedido());
             
             pedidoService.save(pedido);
             return ResponseEntity.ok(pedido);

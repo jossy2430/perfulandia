@@ -24,11 +24,12 @@ public class PedidoService {
     }
 
     public Pedido save(Pedido pedido){
+        if (pedido.getIdPedido() == null) {
+        }
         return pedidoRepository.save(pedido);
     }
 
     public void delete(Long idPedido){
         pedidoRepository.deleteById(idPedido);
     }
-
 }

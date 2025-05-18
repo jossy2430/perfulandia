@@ -49,13 +49,13 @@ public class FacturaController {
     }
 
     @PutMapping("/{idFactura}")
-    public ResponseEntity<Factura> actualizar(@PathVariable Integer iidFactura, @RequestBody Factura factura){
+    public ResponseEntity<Factura> actualizar(@PathVariable Integer idFactura, @RequestBody Factura factura){
         try {
-            Factura fac = facturaService.findById(iidFactura);
-            fac.setIdFactura(iidFactura);
+            Factura fac = facturaService.findById(idFactura);
+            fac.setIdFactura(idFactura);
             fac.setProducto(fac.getProducto());
             fac.setFechaEmision(factura.getFechaEmision());
-            fac.setTotal(iidFactura);
+            fac.setTotal(factura.getTotal());
             fac.setProveedor(factura.getProveedor());
 
             facturaService.save(factura);

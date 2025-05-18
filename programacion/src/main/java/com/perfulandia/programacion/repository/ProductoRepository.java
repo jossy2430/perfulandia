@@ -11,7 +11,7 @@ import com.perfulandia.programacion.model.Producto;
 import feign.Param;
 
 @Repository
-public interface ProductoRepository extends JpaRepository<Producto, Long>  {
+public interface ProductoRepository extends JpaRepository<Producto, Integer>  {
     //JPL
     @Query("SELECT p FROM Producto p WHERE p.nombreProducto = :nombre_producto")
 List<Producto> buscarNombreProducto(@Param("nombre_producto") String nombre_producto);

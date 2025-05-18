@@ -28,7 +28,7 @@ public class DetallePedido {
     private Integer cantidad;
 
     @Column(nullable = false)
-    private Integer totalSinDescuento;
+    private Double totalSinDescuento;
 
     @ManyToOne
     @JoinColumn(name = "codigoCupon", referencedColumnName = "codigo")

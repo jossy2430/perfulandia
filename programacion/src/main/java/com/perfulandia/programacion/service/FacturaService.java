@@ -1,5 +1,6 @@
 package com.perfulandia.programacion.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class FacturaService {
     }
 
     public Factura save(Factura factura){
+        if (factura.getIdFactura() == null) {
+            factura.setFechaEmision(LocalDateTime.now());
+        }
         return facturaRepository.save(factura);
     }
 

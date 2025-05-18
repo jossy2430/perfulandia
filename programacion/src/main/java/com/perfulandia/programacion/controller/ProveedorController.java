@@ -52,13 +52,12 @@ public class ProveedorController {
     public ResponseEntity<Proveedor> actualizar(@PathVariable Integer idProveedor, @RequestBody Proveedor proveedor){
         try {
             Proveedor prov = proveedorService.findById(idProveedor);
-            prov.setIdProveedor(idProveedor);
             prov.setNombreProveedor(proveedor.getNombreProveedor());
             prov.setCorreo(proveedor.getCorreo());
             prov.setTelefonoProveedor(proveedor.getTelefonoProveedor());
 
-            proveedorService.save(proveedor);
-            return ResponseEntity.ok(proveedor);
+            Proveedor proveedorActualizado = proveedorService.save(prov);
+            return ResponseEntity.ok(proveedorActualizado);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
