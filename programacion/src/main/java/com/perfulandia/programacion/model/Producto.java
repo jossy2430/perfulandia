@@ -29,7 +29,7 @@ public class Producto {
     @Column(nullable = false)
     private Integer stock;
 
-    @Column(length = 50)
+    @Column(nullable = false, length = 50)
     private String categoria;
     
 

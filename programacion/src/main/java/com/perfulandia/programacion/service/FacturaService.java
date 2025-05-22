@@ -34,14 +34,17 @@ public class FacturaService {
             factura.setFechaEmision(LocalDateTime.now());
         }
 
-        //obtener el producto asociado a la factura
-        Producto producto = productoRepository.findById(factura.getProducto().getIdProducto()).orElse(null);
-        if (producto != null) {
-            //si la factura representa la venta de un producto con cantidad 1 
-            factura.setTotal((int) producto.getPrecio());
-        } else{
-            factura.setTotal(0);
+        // Calcular el total sumando los precios de todos los productos
+        int total = 0;
+        if (factura.getProductos() != null) {
+            for (Producto producto : factura.getProductos()) {
+                Producto prod = productoRepository.findById(producto.getIdProducto()).orElse(null);
+                if (prod != null) {
+                    total += prod.getPrecio();
+                }
+            }
         }
+        factura.setTotal(total);
         return facturaRepository.save(factura);
     }
 

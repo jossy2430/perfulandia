@@ -1,6 +1,7 @@
 package com.perfulandia.programacion.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,9 +18,13 @@ public class Factura {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idFactura;
 
-    @ManyToOne
-    @JoinColumn(name = "idProducto")
-    private Producto producto;
+    @ManyToMany
+    @JoinTable(
+        name = "factura_producto",
+        joinColumns = @JoinColumn(name = "idFactura"),
+        inverseJoinColumns = @JoinColumn(name = "idProducto")
+    )
+    private List<Producto> productos;
 
     @Column(nullable = false)
     private LocalDateTime fechaEmision;

@@ -34,6 +34,7 @@ public class FacturaController {
 
     @PostMapping
     public ResponseEntity<Factura> guardar(@RequestBody Factura factura){
+        // Ahora la factura debe recibir una lista de productos en el JSON
         Factura nuevaFactura = facturaService.save(factura);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevaFactura);
     }
@@ -53,7 +54,7 @@ public class FacturaController {
         try {
             Factura fac = facturaService.findById(idFactura);
             fac.setIdFactura(idFactura);
-            fac.setProducto(fac.getProducto());
+            fac.setProductos(factura.getProductos());
             fac.setFechaEmision(factura.getFechaEmision());
             fac.setTotal(factura.getTotal());
             fac.setProveedor(factura.getProveedor());
