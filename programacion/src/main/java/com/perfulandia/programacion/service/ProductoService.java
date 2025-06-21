@@ -30,4 +30,13 @@ public class ProductoService {
     public void delete(Integer idProducto){
         productoRepository.deleteById(idProducto);
     }
+    
+    //verificar si hay suficiente inventario del producto con su ID y cantidad
+    public boolean verificarInventario(Integer idProducto, int cantidad) {
+        Producto producto = productoRepository.findById(idProducto).orElse(null);
+        if (producto == null) {
+            throw new RuntimeException("Producto no encontrado con ID: " + idProducto);
+        }
+        return producto.getStock() >= cantidad;
+    }
 }

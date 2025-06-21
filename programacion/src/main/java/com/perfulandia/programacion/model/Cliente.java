@@ -39,4 +39,15 @@ public class Cliente {
 
     @Column(columnDefinition = "INT(9)")
     private Integer telefono;
+
+    public Cliente(String nombres, String apellidos, String direccion, String correo, String password, LocalDateTime fechaRegistro, Integer telefono) {
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.direccion = direccion;
+        this.correo = correo;
+        this.password = password;
+        this.fechaRegistro = fechaRegistro;
+        this.telefono = telefono;
+
+    }
 }

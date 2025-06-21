@@ -24,4 +24,9 @@ public class Sucursal {
     @Column(nullable = false, length = 100)
     private String direccion;
 
+    public Sucursal(String nombreSucursal, String direccion) {
+        this.nombreSucursal = nombreSucursal;
+        this.direccion = direccion;
+    }
+
 }

@@ -38,21 +38,21 @@ public class EmpleadoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevEmpleado);
     }
 
-    @GetMapping("/{idEmpleado}")
-    public ResponseEntity<Empleado> buscar(@PathVariable Integer idEmpleado){
+    @GetMapping("/{rut}")
+    public ResponseEntity<Empleado> buscar(@PathVariable String rut){
         try {
-            Empleado empleado = empleadoService.findById(idEmpleado);
+            Empleado empleado = empleadoService.findById(rut);
             return ResponseEntity.ok(empleado);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
 
-    @PutMapping("/{idEmpleado}")
-    public ResponseEntity<Empleado> actualizar(@PathVariable Integer idEmpleado, @RequestBody Empleado empleado){
+    @PutMapping("/{rut}")
+    public ResponseEntity<Empleado> actualizar(@PathVariable String rut, @RequestBody Empleado empleado){
         try {
-            Empleado em = empleadoService.findById(idEmpleado);
-            em.setIdEmpleado(idEmpleado);
+            Empleado em = empleadoService.findById(rut);
+            em.setIdEmpleado(empleado.getIdEmpleado());
             em.setRut(empleado.getRut());
             em.setNombreEmpleado(empleado.getNombreEmpleado());
             em.setPassword(empleado.getPassword());
@@ -66,10 +66,10 @@ public class EmpleadoController {
         }
     }
 
-    @DeleteMapping("/{idEmpleado}")
-    public ResponseEntity<?> eliminar(@PathVariable Long idEmpleado){
+    @DeleteMapping("/{rut}")
+    public ResponseEntity<?> eliminar(@PathVariable String rut){
         try {
-            empleadoService.delete(idEmpleado);
+            empleadoService.delete(rut);
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

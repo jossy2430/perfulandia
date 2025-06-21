@@ -20,15 +20,15 @@ public class EmpleadoService {
         return empleadoRepository.findAll();
     }
 
-    public Empleado findById(long rut){
-        return empleadoRepository.findById(rut).get();
+    public Empleado findById(String rut){
+        return empleadoRepository.buscarPorRut(rut).orElse(null);
     }
 
     public Empleado save(Empleado empleado){
         return empleadoRepository.save(empleado);
     }
 
-    public void delete(Long rut){
-        empleadoRepository.deleteById(rut);
+    public void delete(String rut){
+        empleadoRepository.buscarPorRut(rut);
     }
 }

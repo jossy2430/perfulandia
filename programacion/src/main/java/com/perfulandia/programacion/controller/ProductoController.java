@@ -76,4 +76,13 @@ public class ProductoController {
         }
     }
 
+    @GetMapping("/verificar-inventario/{idProducto}/{cantidad}")
+    public ResponseEntity<String> verificarInventario(@PathVariable Integer idProducto, @PathVariable int cantidad) {
+        boolean hayInventario = productoService.verificarInventario(idProducto, cantidad);
+        if (hayInventario) {
+            return ResponseEntity.ok("Hay suficiente inventario.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No hay suficiente inventario.");
+        }
+    }
 }

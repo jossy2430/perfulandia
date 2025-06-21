@@ -20,7 +20,7 @@ public class SucursalService {
         return sucursalRepository.findAll();
     }
 
-    public Sucursal findById(long idSucursal){
+    public Sucursal findById(Integer idSucursal){
         return sucursalRepository.findById(idSucursal).get();
     }
 
@@ -28,7 +28,7 @@ public class SucursalService {
         return sucursalRepository.save(sucursal);
     }
 
-    public void delete(Long idSucursal){
+    public void delete(Integer idSucursal){
         sucursalRepository.deleteById(idSucursal);
     }
 

@@ -11,7 +11,7 @@ import com.perfulandia.programacion.model.Sucursal;
 import feign.Param;
 
 @Repository
-public interface SucursalRepository extends JpaRepository<Sucursal, Long> {
+public interface SucursalRepository extends JpaRepository<Sucursal, Integer> {
     //JPL
     @Query("SELECT s FROM Sucursal s WHERE s.nombreSucursal= :nombreSucursal")
     List<Sucursal> buscarPorNombre(@Param("nombreSucursal") String nombreSucursal);

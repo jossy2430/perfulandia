@@ -11,7 +11,7 @@ import com.perfulandia.programacion.model.Cliente;
 import feign.Param;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Long> {
+public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
     //usando jpql
     @Query("SELECT c FROM Cliente c WHERE c.apellidos = :apellido")

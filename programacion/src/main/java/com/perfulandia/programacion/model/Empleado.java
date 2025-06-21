@@ -34,4 +34,11 @@ public class Empleado {
     @JoinColumn(name = "idSucursal", nullable = false)
     private Sucursal sucursal;
 
+    public Empleado(String rut, String nombreEmpleado, String password, String rol, Sucursal sucursal) {
+        this.rut = rut;
+        this.nombreEmpleado = nombreEmpleado;
+        this.password = password;
+        this.rol = rol;
+        this.sucursal = sucursal;
+    }
 }
