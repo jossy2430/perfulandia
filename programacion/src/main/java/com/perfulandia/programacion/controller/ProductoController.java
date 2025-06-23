@@ -17,67 +17,106 @@ import org.springframework.web.bind.annotation.RestController;
 import com.perfulandia.programacion.model.Producto;
 import com.perfulandia.programacion.service.ProductoService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("api/v1/productos")
+@Tag(name = "Productos", description = "Operaciones relacionadas con los productos")
 public class ProductoController {
     @Autowired
     private ProductoService productoService;
 
     @GetMapping
-    public ResponseEntity<List<Producto>> listar(){
-        List<Producto> productos = productoService.findAll();
-        if (productos.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(productos, HttpStatus.OK);
+    @Operation(summary = "Obtener todos los productos", description = "Obtiene una lista de todos los productos registrados")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Operación exitosa",
+            content = @Content(mediaType = "application/json",
+            schema = @Schema(implementation = Producto.class)))
+    })
+    public List<Producto> getAllProductos() {
+        return productoService.findAll();
     }
 
     @PostMapping
-    public ResponseEntity<Producto> guardar(@RequestBody Producto producto){
-        Producto nuevProducto = productoService.save(producto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevProducto);
+    @Operation(summary = "Crear un producto", description = "Crea un nuevo producto en el sistema")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Producto creado exitosamente",
+            content = @Content(mediaType = "application/json",
+            schema = @Schema(implementation = Producto.class)))
+    })
+    public Producto createProducto(
+        @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            description = "Producto a crear", required = true,
+            content = @Content(schema = @Schema(implementation = Producto.class)))
+        @RequestBody Producto producto) {
+        return productoService.save(producto);
     }
 
     @GetMapping("/{idProducto}")
-    public ResponseEntity<Producto> buscar(@PathVariable Integer idProducto){
-        try {
-            Producto producto = productoService.findById(idProducto);
-            return ResponseEntity.ok(producto);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    @Operation(summary = "Obtener producto por ID", description = "Obtiene un producto específico por su ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Operación exitosa",
+            content = @Content(mediaType = "application/json",
+            schema = @Schema(implementation = Producto.class))),
+        @ApiResponse(responseCode = "404", description = "Producto no encontrado")
+    })
+    public Producto getProductoById(
+        @Parameter(description = "ID del producto", required = true)
+        @PathVariable Integer idProducto) {
+        return productoService.findById(idProducto);
     }
 
-    @PutMapping("{idProducto}")
-    public ResponseEntity<Producto> actualizar(@PathVariable Integer idProducto, @RequestBody Producto producto){
-        try {
-            Producto pro = productoService.findById(idProducto);
-            pro.setIdProducto(idProducto);
-            pro.setNombreProducto(producto.getNombreProducto());
-            pro.setDescripcion(producto.getDescripcion());
-            pro.setPrecio(producto.getPrecio());
-            pro.setStock(producto.getStock());
-            pro.setCategoria(producto.getCategoria());
-
-            productoService.save(producto);
-            return ResponseEntity.ok(producto);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    @PutMapping("/{idProducto}")
+    @Operation(summary = "Actualizar un producto", description = "Actualiza la información de un producto existente")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Producto actualizado exitosamente",
+            content = @Content(mediaType = "application/json",
+            schema = @Schema(implementation = Producto.class))),
+        @ApiResponse(responseCode = "404", description = "Producto no encontrado")
+    })
+    public Producto updateProducto(
+        @Parameter(description = "ID del producto a actualizar", required = true)
+        @PathVariable Integer idProducto,
+        @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            description = "Datos actualizados del producto", required = true,
+            content = @Content(schema = @Schema(implementation = Producto.class)))
+        @RequestBody Producto producto) {
+        producto.setIdProducto(idProducto);
+        return productoService.save(producto);    
     }
 
     @DeleteMapping("/{idProducto}")
-    public ResponseEntity<?> eliminar(@PathVariable Integer idProducto){
-        try {
-            productoService.delete(idProducto);
-            return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
+    @Operation(summary = "Eliminar un producto", description = "Elimina un producto por su ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "204", description = "Producto eliminado exitosamente"),
+        @ApiResponse(responseCode = "404", description = "Producto no encontrado")
+    })
+    public void deleteProducto(
+        @Parameter(description = "ID del producto a eliminar", required = true)
+        @PathVariable Integer idProducto) {
+        productoService.delete(idProducto);
     }
 
     @GetMapping("/verificar-inventario/{idProducto}/{cantidad}")
-    public ResponseEntity<String> verificarInventario(@PathVariable Integer idProducto, @PathVariable int cantidad) {
+    @Operation(summary = "Verificar disponibilidad de inventario", description = "Verifica si hay suficiente stock de un producto para una cantidad solicitada")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Hay suficiente inventario",
+            content = @Content(mediaType = "application/json",
+            schema = @Schema(implementation = String.class))),
+        @ApiResponse(responseCode = "400", description = "No hay suficiente inventario")
+    })
+    public ResponseEntity<String> verificarInventario(
+        @Parameter(description = "ID del producto", required = true)
+        @PathVariable Integer idProducto, 
+        @Parameter(description = "Cantidad solicitada", required = true)
+        @PathVariable int cantidad) {
+        
         boolean hayInventario = productoService.verificarInventario(idProducto, cantidad);
         if (hayInventario) {
             return ResponseEntity.ok("Hay suficiente inventario.");
